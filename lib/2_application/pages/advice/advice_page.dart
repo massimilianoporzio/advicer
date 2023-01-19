@@ -66,7 +66,10 @@ class AdvicePage extends StatelessWidget {
                 height: 200,
                 child: Center(
                   child: CustomButton(
-                      onTap: () => print('pressed'), text: 'Get Advice'),
+                      onTap: () {
+                        print('pressed');
+                      },
+                      text: 'Get Advice'),
                 ))
           ],
         ),
