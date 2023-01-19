@@ -17,10 +17,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Advicer',
-      theme: AppTheme.lightTheme,
-      home: const AdvicePage(),
+    return Consumer<ThemeService>(
+      builder: (context, themeService, child) => MaterialApp(
+        themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+        title: 'Advicer',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        home: const AdvicePage(),
+      ),
     );
   }
 }

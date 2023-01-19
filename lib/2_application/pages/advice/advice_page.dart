@@ -1,4 +1,6 @@
+import 'package:advicer/2_application/core/services/theme_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AdvicePage extends StatelessWidget {
   const AdvicePage({super.key});
@@ -10,11 +12,19 @@ class AdvicePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Advicer',
-          style: themeData.appBarTheme.titleTextStyle,
+          style: themeData.textTheme.headline1,
         ),
         centerTitle: true,
-        actions: [],
+        actions: [
+          Switch(
+            //*value lo ascolto! listen: true è default
+            value: Provider.of<ThemeService>(context).isDarkModeOn,
+            onChanged: (value) =>
+                Provider.of<ThemeService>(context, listen: false).toggleTheme(),
+          )
+        ],
       ),
+      body: const Placeholder(),
     );
   }
 }
