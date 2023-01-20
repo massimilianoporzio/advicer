@@ -30,7 +30,7 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
     //*ERRORE? o ho qualcosa allora il bloc/cubit emette lo stato corrisp
     debugPrint(
         "Advice CUBIT: got advice in Cubit: returning it to UI in the State");
-    emit(AdvicerCubitStateLoaded(advice: advice));
+    emit(AdvicerCubitStateLoaded(advice: advice.advice));
     // emit(const AdvicerCubitStateError(message: 'error message'));
   }
 }
