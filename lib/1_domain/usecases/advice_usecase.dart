@@ -15,9 +15,13 @@ class AdviceUseCase {
     debugPrint("ADVICE USE CASE: getAdvice() called ");
     //*will call a repository or more to have Failures or data
     //!sono i repositories che hanno come compito quello di
-    //! PRENDERE DATI DA UNA DATASOURCE
+    //! PRENDERE DATI DA UNA DATASOURCE (i repo! NON lo usecase)
     //! gli use case poi usano e manipolano tali dati e prendono
     //!decisioni / fanno buisiness logic
+
+    //! gli useCase chiedono dati a un repo e poi li usano
+    //! NON NON NON DEVONO SAPERE NEMMENO DELL'ESISTENZA DEI DATASOURCES
+
     //*then proceed with buisiness logic (manipulating data)
     //*return the data asked by cubit/bloc
 
