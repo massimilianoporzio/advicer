@@ -7,15 +7,20 @@
 //* REAL BUSINESS LOGIC! (es: chiamo 2 API e metto insieme i risultati)
 
 import 'package:advicer/1_domain/entities/advice_entity.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+
+import '../failures/failures.dart';
 
 class AdviceUseCase {
   //*COSA RESTITUISCE? UNA DOMAIN ENTITY!!!con le sue proprietà!
   //!MEGLIO
   //*IN base a cosa ottengo dal repo restituisce O una Failure O (Either!) la
   //* nostra entity!
-
-  Future<AdviceEntity> getAdvice() async {
+  //!Either
+  //* ha una parte di sinistra (Failure in questo caso)
+  //* e una parte di destra (la Enetity che mi aspetto di passare poi alla UI)
+  Future<Either<Failure, AdviceEntity>> getAdvice() async {
     debugPrint("ADVICE USE CASE: getAdvice() called ");
     //*will call a repository or more to have Failures or data
     //!sono i repositories che hanno come compito quello di
@@ -33,9 +38,12 @@ class AdviceUseCase {
     return await Future.delayed(const Duration(seconds: 2), () {
       debugPrint(
           "ADVICE USE CASE: got a response from repository: returning to the cubit");
-
-      return AdviceEntity(
-          advice: 'fake advice to test the usecase using entities', id: 1);
+      //*dico che deve resituire la parte destra
+      // return right(AdviceEntity(
+      //     advice: 'fake advice to test the usecase using entities', id: 1));
+      //!OPP LA SINISTRA SE qualcosa era andato storto
+      // debugPrint("ADVICE USE CASE: repo error or logic error");
+      return left(GeneralFailure()); //* per esempio
     });
   }
 }
