@@ -28,6 +28,8 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
     final advice = await adviceUseCase.getAdvice();
     //!}
     //*ERRORE? o ho qualcosa allora il bloc/cubit emette lo stato corrisp
+    //!L'IDEA è guardo se ho una FAILURE o LA MIA ENTITY
+    //*in base a cosa mi ritornerà il mio caso d'uso emetto uno stato apposito
     debugPrint(
         "Advice CUBIT: got advice in Cubit: returning it to UI in the State");
     emit(AdvicerCubitStateLoaded(advice: advice.advice));
