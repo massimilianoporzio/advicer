@@ -11,6 +11,10 @@ import 'package:flutter/material.dart';
 
 class AdviceUseCase {
   //*COSA RESTITUISCE? UNA DOMAIN ENTITY!!!con le sue proprietà!
+  //!MEGLIO
+  //*IN base a cosa ottengo dal repo restituisce O una Failure O (Either!) la
+  //* nostra entity!
+
   Future<AdviceEntity> getAdvice() async {
     debugPrint("ADVICE USE CASE: getAdvice() called ");
     //*will call a repository or more to have Failures or data
