@@ -4,7 +4,7 @@ abstract class AdvicerCubitState extends Equatable {
   const AdvicerCubitState();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class AdvicerCubitInitial extends AdvicerCubitState {}
@@ -23,5 +23,5 @@ class AdvicerCubitStateError extends AdvicerCubitState {
   const AdvicerCubitStateError({required this.message});
 
   @override
-  List<Object?> get props => [message];
+  List<Object> get props => [message];
 }

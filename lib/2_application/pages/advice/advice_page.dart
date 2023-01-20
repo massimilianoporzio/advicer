@@ -80,19 +80,27 @@ class AdvicerPage extends StatelessWidget {
                 child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
                   builder: (context, state) {
                     if (state is AdvicerCubitStateError) {
+                      debugPrint(
+                          "Advice UI: Cubit emitted ERROR state: rebuild!");
                       return ErrorMessage(
                         message: state.message,
                       );
                     } else if (state is AdvicerCubitStateLoading) {
+                      debugPrint(
+                          "Advice UI: Cubit emitted LOADING state: rebuild!");
                       return CircularProgressIndicator(
                         color: themeData.colorScheme.secondary,
                       );
                     } else if (state is AdvicerCubitInitial) {
+                      debugPrint(
+                          "Advice UI: Cubit is in the INITIAL STATE: rebuild");
                       return Text(
                         'Your advice is loading for you blah blah',
                         style: themeData.textTheme.headline1,
                       );
                     } else if (state is AdvicerCubitStateLoaded) {
+                      debugPrint(
+                          "Advice UI: Cubit emitted LOADED state: rebuild!");
                       return AdviceField(
                         advice: state.advice,
                       );

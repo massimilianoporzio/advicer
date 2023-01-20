@@ -18,6 +18,8 @@ class CustomButton extends StatelessWidget {
         // BlocProvider.of<AdvicerBloc>(context).add(AdviceRequestedEvent());
         //*al posto di emettere evento chiamo il metodo della busines logic del
         //* cubit
+        debugPrint(
+            "ADVICE UI: Pressed 'Get Advice' button: let's call the cubit for an advice");
         BlocProvider.of<AdvicerCubit>(context).adviceRequested();
       },
       child: Material(
