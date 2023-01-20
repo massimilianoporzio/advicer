@@ -1,5 +1,6 @@
 import 'package:advicer/2_application/core/services/theme_service.dart';
 import 'package:advicer/2_application/pages/advice/bloc/advicer_bloc.dart';
+import 'package:advicer/2_application/pages/advice/cubit/advicer_cubit.dart';
 import 'package:advicer/2_application/pages/advice/widgets/advice_field.dart';
 import 'package:advicer/2_application/pages/advice/widgets/custom_button.dart';
 import 'package:advicer/2_application/pages/advice/widgets/error_message.dart';
@@ -14,6 +15,18 @@ class AdvicerPageWrapperProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AdvicerBloc>(
       create: (context) => AdvicerBloc(),
+      child: const AdvicerPage(),
+    );
+  }
+}
+
+class AdvicerPageCubitWrapperProvider extends StatelessWidget {
+  const AdvicerPageCubitWrapperProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<AdvicerCubit>(
+      create: (context) => AdvicerCubit(),
       child: const AdvicerPage(),
     );
   }
@@ -63,22 +76,23 @@ class AdvicerPage extends StatelessWidget {
             Expanded(
               child: Center(
                 //*LA UI REAGISCE AD OGNI STATE CHE ARRIVA DAL BLOC
-                child: BlocBuilder<AdvicerBloc, AdvicerState>(
+                // child: BlocBuilder<AdvicerBloc, AdvicerState>(
+                child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
                   builder: (context, state) {
-                    if (state is AdvicerStateError) {
+                    if (state is AdvicerCubitStateError) {
                       return ErrorMessage(
                         message: state.message,
                       );
-                    } else if (state is AdvicerStateLoading) {
+                    } else if (state is AdvicerCubitStateLoading) {
                       return CircularProgressIndicator(
                         color: themeData.colorScheme.secondary,
                       );
-                    } else if (state is AdvicerInitial) {
+                    } else if (state is AdvicerCubitInitial) {
                       return Text(
                         'Your advice is loading for you blah blah',
                         style: themeData.textTheme.headline1,
                       );
-                    } else if (state is AdvicerStateLoaded) {
+                    } else if (state is AdvicerCubitStateLoaded) {
                       return AdviceField(
                         advice: state.advice,
                       );

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Advicer',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: const AdvicerPageWrapperProvider(),
+        home: const AdvicerPageCubitWrapperProvider(),
       ),
     );
   }
