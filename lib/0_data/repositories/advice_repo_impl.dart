@@ -10,8 +10,13 @@ import 'package:dartz/dartz.dart';
 //*delle datasources.
 class AdviceRepoImpl implements AdviceRepo {
   //usa la remoteDS!
-  final AdviceRemoteDataSource adviceRemoteDataSource =
-      AdviceRemoteDataSourceImpl();
+  // final AdviceRemoteDataSource adviceRemoteDataSource =
+  //     AdviceRemoteDataSourceImpl();
+  //*USO DEP JINJECTION
+  final AdviceRemoteDataSource adviceRemoteDataSource;
+
+  AdviceRepoImpl({required this.adviceRemoteDataSource});
+
   @override
   Future<Either<Failure, AdviceEntity>> getAdviceFromDataSource() async {
     //*chiamo la remote datasource

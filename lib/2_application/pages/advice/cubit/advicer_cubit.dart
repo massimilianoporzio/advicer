@@ -1,8 +1,9 @@
-import 'package:advicer/1_domain/failures/failures.dart';
-import 'package:advicer/1_domain/usecases/advice_usecase.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:advicer/1_domain/failures/failures.dart';
+import 'package:advicer/1_domain/usecases/advice_usecase.dart';
 
 part 'advicer_state.dart';
 
@@ -12,8 +13,8 @@ const String cacheFailureMessage = 'Ups, cache error. Please try again!';
 const String serverFailureMessage = 'Ups, API Error. Please try again!';
 
 class AdvicerCubit extends Cubit<AdvicerCubitState> {
-  AdvicerCubit() : super(AdvicerCubitInitial());
-
+  AdvicerCubit({required this.adviceUseCase}) : super(AdvicerCubitInitial());
+  final AdviceUseCase adviceUseCase; //*DA INIETTARE
   //*CUBIT USANO FUNCTION PER GLI EVENTI
   //*che non possono + venire tracciati
   //*ma sono più snelli
@@ -22,7 +23,8 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
     emit(AdvicerCubitStateLoading());
     //*execute Business logicù
     //*MEGLIO! CHIAMO UN USE CASE CHE mi dia un advice
-    final AdviceUseCase adviceUseCase = AdviceUseCase();
+    // final AdviceUseCase adviceUseCase = AdviceUseCase(); //*CREATO DIRETTAMENTE
+
     //* potrebbe anche usare ALTRI useCases (collection of methods)
     //!(come lo faccia non mi interessa non lo scrivo nel cubit/bloc)
     //!{

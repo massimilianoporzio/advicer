@@ -8,12 +8,17 @@
 
 import 'package:advicer/0_data/repositories/advice_repo_impl.dart';
 import 'package:advicer/1_domain/entities/advice_entity.dart';
+import 'package:advicer/1_domain/repositories/advice_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 import '../failures/failures.dart';
 
 class AdviceUseCase {
+  final AdviceRepo adviceRepo;
+
+  AdviceUseCase(
+      {required this.adviceRepo}); //!non la creo ma la inietto da fuori
   //*COSA RESTITUISCE? UNA DOMAIN ENTITY!!!con le sue proprietà!
   //!MEGLIO
   //*IN base a cosa ottengo dal repo restituisce O una Failure O (Either!) la
@@ -24,7 +29,8 @@ class AdviceUseCase {
   Future<Either<Failure, AdviceEntity>> getAdvice() async {
     debugPrint("ADVICE USE CASE: getAdvice() called ");
     //*will call a repository or more to have Failures or data
-    final adviceRepo = AdviceRepoImpl();
+    // final adviceRepo = AdviceRepoImpl(); // DIRETTAMENTE CREATO
+
     //!sono i repositories che hanno come compito quello di
     //! PRENDERE DATI DA UNA DATASOURCE (i repo! NON lo usecase)
     //! gli use case poi usano e manipolano tali dati e prendono

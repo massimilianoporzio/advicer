@@ -3,8 +3,11 @@ import 'package:advicer/2_application/pages/advice/advice_page.dart';
 import 'package:advicer/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'injection.dart' as di; //di==dependency injection
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init(); //*ho tutte le dipendenze pronte
   runApp(ChangeNotifierProvider(
     create: (context) => ThemeService(),
     child: const MyApp(),
