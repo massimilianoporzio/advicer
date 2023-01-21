@@ -6,6 +6,7 @@
 //*ci sono dietro ecc ecc è responsabile il caso d'uso NON il bloc/cubit
 //* REAL BUSINESS LOGIC! (es: chiamo 2 API e metto insieme i risultati)
 
+import 'package:advicer/0_data/repositories/advice_repo_impl.dart';
 import 'package:advicer/1_domain/entities/advice_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class AdviceUseCase {
   Future<Either<Failure, AdviceEntity>> getAdvice() async {
     debugPrint("ADVICE USE CASE: getAdvice() called ");
     //*will call a repository or more to have Failures or data
+    final adviceRepo = AdviceRepoImpl();
     //!sono i repositories che hanno come compito quello di
     //! PRENDERE DATI DA UNA DATASOURCE (i repo! NON lo usecase)
     //! gli use case poi usano e manipolano tali dati e prendono
@@ -34,16 +36,19 @@ class AdviceUseCase {
     //*then proceed with buisiness logic (manipulating data)
     //*return the data asked by cubit/bloc
 
-    //*FAKE THE USE CASE
-    return await Future.delayed(const Duration(seconds: 2), () {
-      debugPrint(
-          "ADVICE USE CASE: got a response from repository: returning to the cubit");
-      //*dico che deve resituire la parte destra
-      // return right(AdviceEntity(
-      //     advice: 'fake advice to test the usecase using entities', id: 1));
-      //!OPP LA SINISTRA SE qualcosa era andato storto
-      // debugPrint("ADVICE USE CASE: repo error or logic error");
-      return left(GeneralFailure()); //* per esempio
-    });
+    // //*FAKE THE USE CASE
+    // return await Future.delayed(const Duration(seconds: 2), () {
+    //   debugPrint(
+    //       "ADVICE USE CASE: got a response from repository: returning to the cubit");
+    //   //*dico che deve resituire la parte destra
+    //   // return right(AdviceEntity(
+    //   //     advice: 'fake advice to test the usecase using entities', id: 1));
+    //   //!OPP LA SINISTRA SE qualcosa era andato storto
+    //   // debugPrint("ADVICE USE CASE: repo error or logic error");
+    //   return left(GeneralFailure()); //* per esempio
+    // });
+    //*chiamata vera al repo (non fake) e poi vedo cosa torna (Either)
+    return adviceRepo.getAdviceFromDataSource();
+    //*altra business logica eventuale
   }
 }
