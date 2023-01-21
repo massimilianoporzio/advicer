@@ -1,6 +1,7 @@
 //*ADAPTER PER API li uso qui
 import 'dart:convert';
 
+import 'package:advicer/0_data/exceptions/exceptions.dart';
 import 'package:advicer/0_data/models/advice_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,7 +25,11 @@ class AdviceRemoteDataSourceImpl implements AdviceRemoteDataSource {
           //*additional info (API KEY etc content-type )
           'content-type': 'application/json'
         });
-    final responseBody = json.decode(response.body); //*in json format
-    return AdviceModel.fromJson(responseBody);
+    if (response.statusCode != 200) {
+      throw ServerException();
+    } else {
+      final responseBody = json.decode(response.body); //*in json format
+      return AdviceModel.fromJson(responseBody);
+    }
   }
 }

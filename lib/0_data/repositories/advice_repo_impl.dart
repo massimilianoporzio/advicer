@@ -1,4 +1,5 @@
 import 'package:advicer/0_data/datasources/advice_remote_datasource.dart';
+import 'package:advicer/0_data/exceptions/exceptions.dart';
 import 'package:advicer/1_domain/failures/failures.dart';
 import 'package:advicer/1_domain/entities/advice_entity.dart';
 import 'package:advicer/1_domain/repositories/advice_repo.dart';
@@ -14,7 +15,18 @@ class AdviceRepoImpl implements AdviceRepo {
   @override
   Future<Either<Failure, AdviceEntity>> getAdviceFromDataSource() async {
     //*chiamo la remote datasource
-    final result = await adviceRemoteDataSource.getRandomAdviceFromApi();
-    return right(result); //*vado sicuro sulla right al momento
+    //*try catch e in base all'eccezione ritorno una Failure
+    try {
+      final result = await adviceRemoteDataSource.getRandomAdviceFromApi();
+      return right(result);
+    } on ServerException catch (e) {
+      // TODO_ RETURN FAILURES
+      return left(ServerFailure());
+    } on CacheException catch (e) {
+      return left(CacheFailure());
+    } catch (e) {
+      return left(GeneralFailure());
+    }
+//*vado sicuro sulla right al momento
   }
 }
